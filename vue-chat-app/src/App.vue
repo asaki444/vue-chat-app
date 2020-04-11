@@ -1,28 +1,28 @@
+
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view/>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { CometChat } from "@cometchat-pro/chat";
+import "./App.css";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  created() {
+    this.initializeApp();
+  },
+  methods: {
+    initializeApp() {
+      const { VUE_APP_COMMETCHAT_APP_ID } = process.env
+      CometChat.init(VUE_APP_COMMETCHAT_APP_ID).then(
+        () => {
+          console.log("Initialization completed successfully");
+        },
+        error => {
+          console.log("Initialization failed with error:", error);
+        }
+      );
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
